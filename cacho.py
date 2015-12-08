@@ -30,7 +30,11 @@ print ""
 
 keep = []
 while True:
-    p = map(lambda x:int(x), raw_input(" Which dice shoot again ? > ").replace(' ',''))
+    s = raw_input(" Which dice shoot again ? > ").replace(' ','')
+    if not s.isdigit():
+        print "Please input number(s) 1-5."
+        continue
+    p = map(lambda x:int(x), s)
     if not p:
         print "Please input number(s) 1-5."
         continue
