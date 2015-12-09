@@ -13,27 +13,37 @@ from optparse import OptionParser
 
 def checkDeMano(shoot):
     dice = [ shoot.count(i) for i in range(1,7) ]
-    checkGrandeDeMano(dice)
-    checkPokerDeMano(dice)
-    checkFullDeMano(dice)
-    checkEscaleraDeMano(dice)
+    if checkGrande(dice):
+        print "  It's Grande De Mano."
+    if checkPoker(dice):
+        print "  It's Poker De Mano."
+    if checkFull(dice):
+        print "  It's Full De Mano."
+    if checkEscalera(dice):
+        print "  It's Escalera De Mano."
 
 # actually not only for de mano
-def checkGrandeDeMano(dice):
+def checkGrande(dice):
     if dice.count(5):
-        print "  It's Grande De Mano."
-    
-def checkEscaleraDeMano(dice):
-    if dice.count(1)==5 and dice[2] and dice[3] and dice[4]:
-        print "  It's Escalera De Mano."
-    
-def checkFullDeMano(dice):
-    if dice.count(3) and dice.count(2):
-        print "  It's Full De Mano."
+        return True
+    return False
 
-def checkPokerDeMano(dice):
+def checkPoker(dice):
     if dice.count(4):
-        print "  It's Poker De Mano."
+        return True
+    return False
+    
+def checkFull(dice):
+    if dice.count(3) and dice.count(2):
+        return True
+    return False
+
+def checkEscalera(dice):
+    if dice.count(1)==5 and dice[2] and dice[3] and dice[4]:
+        return True
+    return False
+    
+
 
 def toGetGrande(shoot):
     pass
@@ -42,13 +52,16 @@ def checkPossibles(shoot):
     dice = [ shoot.count(i) for i in range(1,7) ]
     toGetGrande(shoot)
 
+def checkPossiblesGrande(shoot):
+    pass
+    # ひとつ投げた場合 
 
 ### possible
 
 
 parser = OptionParser()
 parser.add_option('-o','--opposit-side',dest='opp',default=False,help='Show opposit dice.')
-parser.add_option('-s','--sleep',dest='sleep',default=False,help='.')
+parser.add_option('-s','--sleep',dest='sleep',default=False,help='???')
 parser.add_option('-e','--end',dest='end',default=False,help='End after first shoot.')
 (options, args) = parser.parse_args()
 
