@@ -11,8 +11,11 @@ import random
 import time
 from optparse import OptionParser
 
+def countDice(shoot):
+    return [ shoot.count(i) for i in range(1,7) ]
+
 def checkDeMano(shoot):
-    dice = [ shoot.count(i) for i in range(1,7) ]
+    dice = countDice(shoot)
     if checkGrande(dice):
         print "  It's Grande De Mano."
     if checkPoker(dice):
@@ -43,26 +46,38 @@ def checkEscalera(dice):
         return True
     return False
     
+def checkPossibilitiesGrande(shoot):
+    dice = countDice(shoot)
+    try:
+        print  dice.index(2)+1
+    except ValueError:
+        pass
+    # ひとつ投げて こんなことない
+    # if dice.count(4):
+    #     print "  chance to grande"
+    # ふたつ投げて
+    if not checkFull(dice) and dice.count(3):
+        print "  chance to grande"
+    # みっつ投げて
+    # よっつ投げて
+    # いつつ投げて
 
-
-def toGetGrande(shoot):
-    pass
-
-def checkPossibles(shoot):
-    dice = [ shoot.count(i) for i in range(1,7) ]
-    toGetGrande(shoot)
-
-def checkPossiblesGrande(shoot):
-    pass
-    # ひとつ投げた場合 
+def showDice(shoot):
+    dice = countDice(shoot)
+    for i in range(6):
+        sys.stdout.write(" %d |"%(i+1))
+        for _ in range(dice[i]):
+            sys.stdout.write("*")
+        sys.stdout.write("\n")
+    sys.stdout.write("\n")
 
 ### possible
 
-
 parser = OptionParser()
-parser.add_option('-o','--opposit-side',dest='opp',default=False,help='Show opposit dice.')
-parser.add_option('-s','--sleep',dest='sleep',default=False,help='???')
-parser.add_option('-e','--end',dest='end',default=False,help='End after first shoot.')
+parser.add_option('-o','--opposit-side',dest='opp',action='store_true',help='Show opposit dice.')
+parser.add_option('-s','--sleep',dest='sleep',action='store_true',help='take 1 sec with shooting dice')
+parser.add_option('-e','--end',dest='end',action='store_true',help='End after first shoot.')
+parser.add_option('-g','--graph',dest='graph',action='store_true',help='Show dice histgram.')
 (options, args) = parser.parse_args()
 
 dice   = ( 1, 2, 3, 4, 5, 6 )
@@ -74,7 +89,10 @@ print " shoot 1       | ", shoot1
 if options.opp:
     print " opposite side | ", map(lambda x:7-x,shoot1)
 print ""
+if options.graph:
+    showDice(shoot1)
 checkDeMano(shoot1)
+checkPossibilitiesGrande(shoot1)
 if options.end:
     sys.exit(0)
 
@@ -108,5 +126,4 @@ if options.opp:
     print " opposite side | ", map(lambda x:7-x,keep+shoot2)
 print ""
 
-checkPossibles(shoot2)
 
