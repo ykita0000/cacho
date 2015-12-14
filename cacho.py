@@ -13,6 +13,7 @@ from optparse import OptionParser
 
 import util
 import check
+import shootMovie
 
 ### possible
 
@@ -21,12 +22,18 @@ parser.add_option('-o','--opposit-side',dest='opp',action='store_true',help='Sho
 parser.add_option('-s','--sleep',dest='sleep',action='store_true',help='take 1 sec with shooting dice')
 parser.add_option('-e','--end',dest='end',action='store_true',help='End after first shoot.')
 parser.add_option('-g','--graph',dest='graph',action='store_true',help='Show dice histgram.')
+parser.add_option('-m','--movie',dest='movie',action='store_true',help='Show movie of shooting dice.')
 (options, args) = parser.parse_args()
 
 dice   = ( 1, 2, 3, 4, 5, 6 )
 shoot1 = [ random.choice(dice) for _ in range(5) ]
 if options.sleep:
     time.sleep(1)
+
+if options.movie:
+    shootMovie.shootMovie()
+    
+print ""
 print ""
 print " shoot 1       | ", shoot1
 if options.opp:
