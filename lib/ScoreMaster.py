@@ -12,7 +12,18 @@ import sys
 class ScoreMaster(object):
     def getScore(scoreTable):
         score = 0
-        score += getGrandeScore(scoreTable)
+        score += getScoreGrande(scoreTable)
+        score += getScorePoker(scoreTable)
+        score += getScoreFull(scoreTable)
+        score += getScoreEscalera(scoreTable)
+
+
+    def setScoreNumbers(scoreTable):
+        pass
+
+    def getScoreNumbers(scoreTable):
+        pass
+
 
     def setScoreGrande(scoreTable,x):
         if not scoreTable._grande[1]==0: 
@@ -38,16 +49,24 @@ class ScoreMaster(object):
             print "Escalera Already Filled"
     
     def getScoreEscalera(scoreTable):
-        if scoreTable._escalera==1: 
+        elif scoreTable._escalera==1: 
             return 20
         elif scoreTable._escalera==2: 
-            return 20
+            return 25
+        return 0
         
     def setScoreFull(scoreTable,x):
         if scoreTable._full==0: 
             scoreTable._full = x
         else:
             print "Full Already Filled"
+
+    def getScoreFull(scoreTable):
+        elif scoreTable._full==1: 
+            return 30
+        elif scoreTable._full==2: 
+            return 35
+        return 0
         
     def setScorePoker(scoreTable,x):
         if scoreTable._poker==0: 
@@ -55,5 +74,10 @@ class ScoreMaster(object):
         else:
             print "poker Already Filled"
         
-    
-    
+    def getScorePoker(scoreTable):
+        elif scoreTable._poker==1: 
+            return 40
+        elif scoreTable._poker==2: 
+            return 45
+        return 0
+
